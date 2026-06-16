@@ -1,6 +1,6 @@
 public class List {
-     Node head;
-     Node tail;
+    Node head;
+    Node tail;
     Node cursor;
 
     public List() {
@@ -14,59 +14,51 @@ public class List {
             cursor = newNode;
         } else {
             tail.next = newNode;
+            newNode.prev = tail;
             tail = newNode;
         }
     }
-    public void sort(){
+
+    public void sort() {
         if (head == null || head.next == null) {
-                return; // List is empty or has only one element, no need to sort
-            }
+            return;
+        }
 
-            Node current = head;
-            while (current != null) {
-                Node index = current.next;
-                while (index != null) {
-                    if (current.data.compareTo(index.data) > 0) {
-                        // Swap the data of the nodes
-                        String temp = current.data;
-                        current.data = index.data;
-                        index.data = temp;
-                    }
-                    index = index.next;
-                }
-                current = current.next;
-            }
-
-    }
-
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
         Node current = head;
         while (current != null) {
-            sb.append(current.data);
-            if (current.next != null) {
-                sb.append(" -> ");
+            Node index = current.next;
+            while (index != null) {
+                if (current.data.compareTo(index.data) > 0) {
+                    String temp = current.data;
+                    current.data = index.data;
+                    index.data = temp;
+                }
+                index = index.next;
             }
             current = current.next;
         }
-        return sb.toString();
     }
-    public void remove(String string){
+
+    public void remove(String string) {
         Node current = head;
         while (current != null) {
             if (current.data.equalsIgnoreCase(string)) {
                 if (current.prev != null) current.prev.next = current.next;
                 else head = current.next;
+
                 if (current.next != null) current.next.prev = current.prev;
                 else tail = current.prev;
+
+                // ✅ Fixed: reset cursor to head if the deleted node was the cursor
+                if (current == cursor) cursor = head;
+
                 return;
             }
             current = current.next;
         }
         System.out.println("Item not found: " + string);
-
-
     }
+
     public int size() {
         int count = 0;
         Node current = head;
@@ -93,7 +85,7 @@ public class List {
             cursor = cursor.next;
             return cursor.data;
         }
-        return null; // already at end
+        return null;
     }
 
     public String previous() {
@@ -101,7 +93,18 @@ public class List {
             cursor = cursor.prev;
             return cursor.data;
         }
-        return null; // already at start
+        return null;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        Node current = head;
+        while (current != null) {
+            sb.append(current.data);
+            if (current.next != null) sb.append(" -> ");
+            current = current.next;
+        }
+        return sb.toString();
+    }
 }

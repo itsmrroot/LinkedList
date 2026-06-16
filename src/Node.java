@@ -3,36 +3,36 @@ public class Node {
     Node next;
     Node prev;
 
-    public Node(String date) {
-        this.data = date;
-    }
-
-     public String getDate() {
-        return data;
-    }
-
-     public void setDate(String date) {
+    public Node(String data) {
         this.data = data;
     }
 
-     public Node getNext() {
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public Node getNext() {
         return next;
     }
 
-     public void setNext(Node next) {
+    public void setNext(Node next) {
         this.next = next;
     }
 
-     public Node getPrev() {
+    public Node getPrev() {
         return prev;
     }
 
-     public void setPrev(Node prev) {
+    public void setPrev(Node prev) {
         this.prev = prev;
     }
 
-     @Override
-    public String toString() {        return "Node{" +
-                "date='" + data + '\'' +
-                '}';    }
+    @Override
+    public String toString() {
+        return "Node{data='" + data + "'}";
+    }
 }
