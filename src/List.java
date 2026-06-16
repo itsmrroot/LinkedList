@@ -49,7 +49,6 @@ public class List {
                 if (current.next != null) current.next.prev = current.prev;
                 else tail = current.prev;
 
-                // ✅ Fixed: reset cursor to head if the deleted node was the cursor
                 if (current == cursor) cursor = head;
 
                 return;
